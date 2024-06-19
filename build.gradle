@@ -9,7 +9,8 @@ repositories {
 }
 
 def restAssuredVersion = "5.4.0",
-    allureVersion = "2.21.0"
+    allureVersion = "2.21.0",
+    selenideVersion = "7.2.3"
 
 allure {
     report {
@@ -25,15 +26,17 @@ allure {
     }
 }
 
-compileJava{
-    options.encoding='UTF-8'
+compileJava {
+    options.encoding = 'UTF-8'
 }
-compileTestJava{
-    options.encoding='UTF-8'
+compileTestJava {
+    options.encoding = 'UTF-8'
 }
 
 dependencies {
     testImplementation(
+            "com.codeborne:selenide:$selenideVersion",
+            "io.qameta.allure:allure-selenide:$allureVersion",
             "io.rest-assured:rest-assured:$restAssuredVersion",
             "io.rest-assured:json-schema-validator:$restAssuredVersion",
             "io.qameta.allure:allure-rest-assured:$allureVersion",
@@ -51,5 +54,11 @@ tasks.withType(Test) {
             events "started", "skipped", "failed", "standard_error", "standard_out"
             exceptionFormat "short"
         }
+    }
+}
+
+task reqres_test(type: Test) {
+    useJUnitPlatform {
+        includeTags("deleteBook")
     }
 }
