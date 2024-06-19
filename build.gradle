@@ -62,3 +62,8 @@ task reqres_test(type: Test) {
         includeTags("deleteBook")
     }
 }
+
+test {
+    useJUnitPlatform()
+    systemProperties(System.getProperties())
+}
